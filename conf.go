@@ -10,18 +10,13 @@ import (
 
 var c map[string]string
 var appName string
-var debug int
 
 const conf_url = "http://token.qoofan.com/api/app-config"
 
-func Init(app_name string, debugMode bool) error {
+func Init(app_name string) error {
 	fmt.Println("begin: ", time.Now().Unix())
 	appName = app_name
 
-	debug = 0
-	if debugMode {
-		debug = 1
-	}
 	go func() {
 		defer func() {
 			if err := recover(); err != nil {
@@ -47,7 +42,6 @@ func Update() error {
 	params := map[string]string{
 		"app": appName,
 		"hostname": hostname,
-		"debug": fmt.Sprintf("%d", debug),
 	}
 
 	resp, err := grequests.Get(conf_url, &grequests.RequestOptions{
