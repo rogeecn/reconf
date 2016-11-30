@@ -1,10 +1,10 @@
 package reconf
 
 import (
-	"github.com/levigross/grequests"
-	"strconv"
 	"fmt"
+	"github.com/levigross/grequests"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -24,7 +24,7 @@ func Init(app_name string) error {
 			}
 		}()
 		for {
-			<-time.After(time.Second * 10)
+			<-time.After(time.Minute)
 
 			fmt.Println("updating config...")
 			err := Update()
@@ -40,12 +40,12 @@ func Init(app_name string) error {
 func Update() error {
 	hostname, _ := os.Hostname()
 	params := map[string]string{
-		"app": appName,
+		"app":      appName,
 		"hostname": hostname,
 	}
 
 	resp, err := grequests.Get(conf_url, &grequests.RequestOptions{
-		Params:params,
+		Params: params,
 	})
 	if err != nil {
 		return err
@@ -53,8 +53,8 @@ func Update() error {
 	fmt.Println(">>>>> remote string configure data: ", resp.String())
 
 	var jsonResp struct {
-		Code int `json:"code"`
-		Msg  string `json:"msg"`
+		Code int               `json:"code"`
+		Msg  string            `json:"msg"`
 		Data map[string]string `json:"data"`
 	}
 	err = resp.JSON(&jsonResp)
