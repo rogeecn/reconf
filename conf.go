@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"time"
+	"sort"
 )
 
 var c map[string]string
@@ -15,6 +16,7 @@ var debug int
 const conf_url = "http://token.qoofan.com/api/app-config"
 
 func Init(app_name string, debugMode bool) error {
+	fmt.Println("begin: ", time.Now().Unix())
 	appName = app_name
 
 	debug = 0
@@ -55,7 +57,7 @@ func Update() error {
 	if err != nil {
 		return err
 	}
-	fmt.Println("remote configure data: ", resp.String())
+	fmt.Println(">>>>> remote string configure data: ", resp.String())
 
 	var jsonResp struct {
 		Code int `json:"code"`
@@ -71,6 +73,12 @@ func Update() error {
 		return fmt.Errorf("Remote data error, Err: %s", jsonResp.Msg)
 	}
 	c = jsonResp.Data
+
+	fmt.Println("=========================================================")
+	for key, value := range c {
+		fmt.Printf("%30s : %s\n", key, value)
+	}
+	fmt.Println("=========================================================")
 
 	return nil
 }
