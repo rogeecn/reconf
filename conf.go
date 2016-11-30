@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"time"
-	"sort"
 )
 
 var c map[string]string
