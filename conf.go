@@ -37,8 +37,6 @@ func Init(app_name string) error {
 		}
 	}()
 
-	Callback = func(data map[string]string) {
-	}
 	return Update()
 }
 
@@ -78,7 +76,9 @@ func Update() error {
 	}
 	fmt.Println("=========================================================")
 
-	Callback(jsonResp.Data)
+	if Callback != nil {
+		Callback(jsonResp.Data)
+	}
 	return nil
 }
 
