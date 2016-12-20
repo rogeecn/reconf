@@ -13,6 +13,8 @@ var appName string
 
 const conf_url = "http://token.qoofan.com/api/app-config"
 
+var Callback func(data map[string]string)
+
 func Init(app_name string) error {
 	fmt.Println("begin: ", time.Now().Unix())
 	appName = app_name
@@ -34,6 +36,9 @@ func Init(app_name string) error {
 			fmt.Println("update config complete...")
 		}
 	}()
+
+	Callback = func(data map[string]string) {
+	}
 	return Update()
 }
 
@@ -73,6 +78,7 @@ func Update() error {
 	}
 	fmt.Println("=========================================================")
 
+	Callback(jsonResp.Data)
 	return nil
 }
 
