@@ -15,6 +15,10 @@ const conf_url = "http://token.qoofan.com/api/app-config"
 
 var Callback func(data map[string]string)
 
+func AppName() string {
+	return appName
+}
+
 func Init(app_name string) error {
 	fmt.Println("begin: ", time.Now().Unix())
 	appName = app_name
