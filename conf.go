@@ -11,7 +11,7 @@ import (
 var c map[string]string
 var appName string
 
-const conf_url = "http://token.qoofan.com/api/app-config"
+const conf_url = "http://token.404wx.com/api/app-config"
 
 var Callback func(data map[string]string)
 
